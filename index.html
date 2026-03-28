@@ -11,33 +11,25 @@
       padding: 0;
       background: linear-gradient(to bottom, #ffe0e9, #ffd6a5);
       font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
+      overflow-x: hidden;
+      text-align: center;
     }
 
-    .phone {
-      width: 350px;
-      height: 650px;
+    .container {
+      max-width: 600px;
+      margin: 80px auto;
       background: white;
-      border-radius: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      overflow-y: auto;
-      padding: 20px;
-      text-align: center;
-      position: relative;
-      z-index: 2;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
 
     h1 {
-      font-size: 24px;
       color: #ff6b81;
     }
 
     p {
-      font-size: 15px;
+      font-size: 16px;
       color: #333;
     }
 
@@ -61,7 +53,149 @@
     }
 
     .gallery img {
-      width: 90%;
+      width: 100%;
+      margin: 15px 0;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* 💕 Floating Hearts */
+    .heart {
+      position: fixed;
+      color: #ff6b81;
+      font-size: 20px;
+      animation: floatUp 5s linear infinite;
+      opacity: 0.8;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- 💖 Floating Hearts -->
+<script>
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 5000);
+  }
+
+  setInterval(createHeart, 300);
+</script>
+
+<!-- LOGIN -->
+<div class="container" id="loginPage">
+  <h1>💛</h1>
+  <p>Enter our callsign</p>
+  <input type="password" id="password" placeholder="Enter password">
+  <br>
+  <button onclick="checkPassword()">Login</button>
+  <p id="error" style="color:red;"></p>
+</div>
+
+<!-- READY -->
+<div class="container hidden" id="readyPage">
+  <h1>Hi love 💕</h1>
+  <p>Are you ready?</p>
+  <button onclick="showMessage()">Yes 💛</button>
+</div>
+
+<!-- MESSAGE -->
+<div class="container hidden" id="messagePage">
+  <h1>I have something to tell you ❤️</h1>
+
+  <p id="typingText"></p>
+
+  <button onclick="showAnniv()">Continue 💕</button>
+</div>
+
+<!-- ANNIVERSARY -->
+<div class="container hidden" id="annivPage">
+  <h1>💖</h1>
+  <p><b>Marked this day as our anniversary 💕</b></p>
+
+  <div class="gallery">
+    <img src="pic1.jpg">
+    <img src="pic2.jpg">
+    <img src="pic3.jpg">
+  </div>
+
+  <audio controls autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+<script>
+  function checkPassword() {
+    var pass = document.getElementById("password").value;
+    if (pass === "love") {
+      document.getElementById("loginPage").classList.add("hidden");
+      document.getElementById("readyPage").classList.remove("hidden");
+    } else {
+      document.getElementById("error").innerText = "Wrong password 💔";
+    }
+  }
+
+  function showMessage() {
+    document.getElementById("readyPage").classList.add("hidden");
+    document.getElementById("messagePage").classList.remove("hidden");
+    startTyping();
+  }
+
+  function showAnniv() {
+    document.getElementById("messagePage").classList.add("hidden");
+    document.getElementById("annivPage").classList.remove("hidden");
+  }
+
+  // ⌨️ Typing Effect
+  const text = `From the moment I met you, something felt different.
+You made my world brighter without even trying.
+
+Every moment with you is something I treasure deeply.
+And I realized something important...
+
+I love you 💖
+
+Thank you for being part of my life.
+You mean so much to me, more than words can explain.`;
+
+  let i = 0;
+
+  function startTyping() {
+    if (i < text.length) {
+      document.getElementById("typingText").innerHTML += text.charAt(i);
+      i++;
+      setTimeout(startTyping, 30);
+    }
+  }
+</script>
+
+</body>
+</html>      width: 90%;
       margin: 10px auto;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
