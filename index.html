@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>For You 💛</title>
+  <title>For You 💜</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,28 +9,30 @@
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(to bottom, #ffe0e9, #ffd6a5);
+      background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
       font-family: 'Segoe UI', sans-serif;
-      overflow-x: hidden;
       text-align: center;
+      color: white;
+      overflow-x: hidden;
     }
 
     .container {
-      max-width: 600px;
-      margin: 80px auto;
-      background: white;
+      max-width: 700px;
+      margin: 60px auto;
+      background: rgba(0,0,0,0.7);
       padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
     h1 {
-      color: #ff6b81;
+      color: #c084fc;
     }
 
     p {
       font-size: 16px;
-      color: #333;
+      color: #ddd;
+      line-height: 1.6;
     }
 
     input, button {
@@ -42,30 +44,48 @@
       font-size: 14px;
     }
 
+    input {
+      background: #1e1e2f;
+      color: white;
+    }
+
     button {
-      background: #ff6b81;
+      background: #7c3aed;
       color: white;
       cursor: pointer;
+    }
+
+    button:hover {
+      background: #a78bfa;
     }
 
     .hidden {
       display: none;
     }
 
+    /* 🖼️ FIXED IMAGE GRID (NO SCROLL ISSUE) */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
     .gallery img {
       width: 100%;
-      margin: 15px 0;
+      height: 200px;
+      object-fit: cover;
       border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
 
     /* 💕 Floating Hearts */
     .heart {
       position: fixed;
-      color: #ff6b81;
+      color: #a78bfa;
       font-size: 20px;
-      animation: floatUp 5s linear infinite;
-      opacity: 0.8;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
       z-index: 1;
     }
 
@@ -87,29 +107,29 @@
 
 <body>
 
-<!-- 💖 Floating Hearts -->
+<!-- 💕 Floating Hearts -->
 <script>
   function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
-    heart.innerHTML = "💖";
+    heart.innerHTML = "💜";
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    heart.style.animationDuration = (Math.random() * 4 + 4) + "s";
 
     document.body.appendChild(heart);
 
     setTimeout(() => {
       heart.remove();
-    }, 5000);
+    }, 6000);
   }
 
-  setInterval(createHeart, 300);
+  setInterval(createHeart, 400);
 </script>
 
 <!-- LOGIN -->
 <div class="container" id="loginPage">
-  <h1>💛</h1>
+  <h1>💜</h1>
   <p>Enter our callsign</p>
   <input type="password" id="password" placeholder="Enter password">
   <br>
@@ -119,24 +139,22 @@
 
 <!-- READY -->
 <div class="container hidden" id="readyPage">
-  <h1>Hi love 💕</h1>
+  <h1>Hi love 💜</h1>
   <p>Are you ready?</p>
-  <button onclick="showMessage()">Yes 💛</button>
+  <button onclick="showMessage()">Yes 💜</button>
 </div>
 
 <!-- MESSAGE -->
 <div class="container hidden" id="messagePage">
-  <h1>I have something to tell you ❤️</h1>
-
+  <h1>I have something to tell you 💜</h1>
   <p id="typingText"></p>
-
-  <button onclick="showAnniv()">Continue 💕</button>
+  <button onclick="showAnniv()">Continue 💜</button>
 </div>
 
 <!-- ANNIVERSARY -->
 <div class="container hidden" id="annivPage">
-  <h1>💖</h1>
-  <p><b>Marked this day as our anniversary 💕</b></p>
+  <h1>💜</h1>
+  <p><b>Marked this day as our anniversary 💜</b></p>
 
   <div class="gallery">
     <img src="pic1.jpg">
@@ -144,7 +162,7 @@
     <img src="pic3.jpg">
   </div>
 
-  <audio controls autoplay loop>
+  <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 </div>
@@ -164,6 +182,7 @@
     document.getElementById("readyPage").classList.add("hidden");
     document.getElementById("messagePage").classList.remove("hidden");
     startTyping();
+    playMusic();
   }
 
   function showAnniv() {
@@ -171,14 +190,19 @@
     document.getElementById("annivPage").classList.remove("hidden");
   }
 
-  // ⌨️ Typing Effect
+  function playMusic() {
+    var music = document.getElementById("bgMusic");
+    music.play();
+  }
+
+  // ⌨️ SLOWER TYPING EFFECT
   const text = `From the moment I met you, something felt different.
 You made my world brighter without even trying.
 
 Every moment with you is something I treasure deeply.
 And I realized something important...
 
-I love you 💖
+I love you 💜
 
 Thank you for being part of my life.
 You mean so much to me, more than words can explain.`;
@@ -189,15 +213,10 @@ You mean so much to me, more than words can explain.`;
     if (i < text.length) {
       document.getElementById("typingText").innerHTML += text.charAt(i);
       i++;
-      setTimeout(startTyping, 30);
+      setTimeout(startTyping, 60); // slower typing here 💜
     }
   }
 </script>
 
 </body>
-</html>     
-
-
-        
-
-  
+</html>  
