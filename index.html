@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>For You 💛</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      margin-top: 80px;
+      padding: 20px;
+    }
+
+    input, button {
+      padding: 12px;
+      font-size: 16px;
+      margin: 10px;
+      border-radius: 10px;
+      border: none;
+    }
+
+    button {
+      background-color: #ff6b81;
+      color: white;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Gallery */
+    .gallery {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .gallery div {
+      margin: 10px;
+    }
+
+    .gallery img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- LOGIN PAGE -->
+<div class="container" id="loginPage">
+  <h1>Hi love 💛</h1>
+  <p>Enter our callsign to continue...</p>
+  <input type="password" id="password" placeholder="Enter password">
+  <br>
+  <button onclick="checkPassword()">Login</button>
+  <p id="error" style="color:red;"></p>
+</div>
+
+<!-- READY PAGE -->
+<div class="container hidden" id="readyPage">
+  <h1>Hey love 💕</h1>
+  <p>Are you ready?</p>
+  <button onclick="showAnniv()">Yes, I’m ready 💛</button>
+</div>
+
+<!-- ANNIVERSARY PAGE -->
+<div class="container hidden" id="annivPage">
+  <h1>💖</h1>
+  <p><b>Marked this day as our anniversary 💕</b></p>
+  <button onclick="showMessage()">Continue</button>
+</div>
+
+<!-- FINAL MESSAGE -->
+<div class="container hidden" id="messagePage">
+
+  <h1>I have something to tell you...</h1>
+
+  <p>
+    From the moment I met you, something felt different.
+    You made me smile in ways I never expected.
+  </p>
+
+  <p>
+    Every conversation, every laugh, every moment with you
+    became something I started to treasure more and more.
+  </p>
+
+  <p>
+    And somewhere along the way…
+    I realized that what I feel for you is more than just simple happiness.
+  </p>
+
+  <h2>I love you ❤️</h2>
+
+  <p>
+    Thank you for being you. Thank you for coming into my life.
+    I hope we can create more memories together from this day on.
+  </p>
+
+  <!-- PHOTO GALLERY -->
+  <h2>Our Memories 💕</h2>
+
+  <div class="gallery">
+    <div>
+      <img src="pic1.jpg">
+      <p>Our first memory 💛</p>
+    </div>
+
+    <div>
+      <img src="pic2.jpg">
+      <p>My favorite moment 🥺</p>
+    </div>
+
+    <div>
+      <img src="pic3.jpg">
+      <p>One of the happiest days 💖</p>
+    </div>
+  </div>
+
+  <!-- MUSIC -->
+  <audio controls autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+</div>
+
+<script>
+  function checkPassword() {
+    var pass = document.getElementById("password").value;
+    if (pass === "love") {
+      document.getElementById("loginPage").classList.add("hidden");
+      document.getElementById("readyPage").classList.remove("hidden");
+    } else {
+      document.getElementById("error").innerText = "Wrong password 💔";
+    }
+  }
+
+  function showAnniv() {
+    document.getElementById("readyPage").classList.add("hidden");
+    document.getElementById("annivPage").classList.remove("hidden");
+  }
+
+  function showMessage() {
+    document.getElementById("annivPage").classList.add("hidden");
+    document.getElementById("messagePage").classList.remove("hidden");
+  }
+</script>
+
+</body>
+</html>
