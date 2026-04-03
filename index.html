@@ -1,47 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>For You 💜</title>
+  <title>For James Carl 💜</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
       margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
       font-family: 'Segoe UI', sans-serif;
-      text-align: center;
+      background: radial-gradient(circle, #0f0c29, #1a0033, #000000);
       color: white;
+      text-align: center;
       overflow-x: hidden;
     }
 
+    /* 🌌 STAR BACKGROUND */
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .stars::after {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background-image: radial-gradient(white 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: moveStars 60s linear infinite;
+      opacity: 0.3;
+    }
+
+    @keyframes moveStars {
+      from { transform: translateY(0); }
+      to { transform: translateY(-500px); }
+    }
+
     .container {
+      position: relative;
+      z-index: 2;
       max-width: 700px;
       margin: 60px auto;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.75);
       padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 0 25px rgba(147, 51, 234, 0.5);
     }
 
     h1 {
       color: #c084fc;
+      text-shadow: 0 0 10px #a855f7;
     }
 
-    p {
-      font-size: 16px;
-      color: #ddd;
-      line-height: 1.6;
-    }
-
-    input, button {
+    button, input {
       padding: 12px;
       width: 80%;
-      margin: 10px auto;
+      margin: 10px;
       border-radius: 10px;
       border: none;
-      font-size: 14px;
     }
 
     input {
@@ -63,149 +84,181 @@
       display: none;
     }
 
-    /* 🖼️ FIXED IMAGE GRID (NO SCROLL ISSUE) */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .gallery img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    }
-
-    /* 💕 Floating Hearts */
-    .heart {
+    /* ❤️ HEART PARTICLES */
+    .particle {
       position: fixed;
-      color: #a78bfa;
-      font-size: 20px;
+      color: red;
+      font-size: 18px;
       animation: floatUp 6s linear infinite;
-      opacity: 0.7;
+      opacity: 0.8;
       z-index: 1;
     }
 
     @keyframes floatUp {
-      0% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-10vh);
-        opacity: 0;
-      }
+      from { transform: translateY(100vh); }
+      to { transform: translateY(-10vh); }
+    }
+
+    /* 📸 SLIDER */
+    .slider img {
+      width: 100%;
+      border-radius: 15px;
+      margin-top: 10px;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* 💔 SHAKE */
+    .shake {
+      animation: shake 0.5s;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      50% { transform: translateX(10px); }
+      75% { transform: translateX(-10px); }
+      100% { transform: translateX(0); }
+    }
+
+    /* 💜 GLOW NAME */
+    .glow {
+      font-size: 28px;
+      color: #fff;
+      text-shadow: 0 0 10px #a855f7, 0 0 20px #a855f7;
     }
   </style>
 </head>
 
 <body>
 
-<!-- 💕 Floating Hearts -->
+<div class="stars"></div>
+
 <script>
-  function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "💜";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-    heart.style.animationDuration = (Math.random() * 4 + 4) + "s";
+  // ❤️ floating hearts
+  function createParticle() {
+    const el = document.createElement("div");
+    el.classList.add("particle");
+    el.innerHTML = Math.random() > 0.5 ? "❤️" : "✨";
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.animationDuration = (Math.random() * 4 + 4) + "s";
+    document.body.appendChild(el);
 
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-      heart.remove();
-    }, 6000);
+    setTimeout(() => el.remove(), 6000);
   }
 
-  setInterval(createHeart, 400);
+  setInterval(createParticle, 300);
 </script>
 
 <!-- LOGIN -->
 <div class="container" id="loginPage">
   <h1>💜</h1>
   <p>Enter our callsign</p>
-  <input type="password" id="password" placeholder="Enter password">
-  <br>
+  <input type="password" id="password" placeholder="Password">
   <button onclick="checkPassword()">Login</button>
   <p id="error" style="color:red;"></p>
 </div>
 
-<!-- READY -->
-<div class="container hidden" id="readyPage">
-  <h1>Hi love 💜</h1>
-  <p>Are you ready?</p>
-  <button onclick="showMessage()">Yes 💜</button>
+<!-- LOVE LOCK -->
+<div class="container hidden" id="lockPage">
+  <h1 class="glow">For James Carl 💜</h1>
+  <p>Click the heart 3 times</p>
+  <div style="font-size:50px; cursor:pointer;" onclick="heartClick()">❤️</div>
 </div>
 
 <!-- MESSAGE -->
 <div class="container hidden" id="messagePage">
-  <h1>I have something to tell you 💜</h1>
+  <h1>💜</h1>
   <p id="typingText"></p>
-  <button onclick="showAnniv()">Continue 💜</button>
+
+  <p>Will you stay with me forever?</p>
+  <button onclick="yesLove()">💜 Yes</button>
+  <button onclick="noLove()">💔 No</button>
 </div>
 
 <!-- ANNIVERSARY -->
 <div class="container hidden" id="annivPage">
-  <h1>💜</h1>
-  
-  <div class="gallery">
+  <h1 class="glow">James Carl 💜</h1>
+  <p><b>Marked this day as our anniversary 💜</b></p>
+
+  <div class="slider">
     <img src="pic1.jpg">
     <img src="pic2.jpg">
     <img src="pic3.jpg">
   </div>
-<p><b>Marked this day as our anniversary 💜</b></p>
 
-  <audio id="bgMusic" loop>
+  <button onclick="showSecret()">Tap this 💜</button>
+
+  <p id="secret" class="hidden">
+    You are my forever, James Carl 💜🥺
+  </p>
+
+  <audio id="music" loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 </div>
 
 <script>
+  let heartCount = 0;
+
   function checkPassword() {
-    var pass = document.getElementById("password").value;
+    const pass = document.getElementById("password").value;
+
     if (pass === "love") {
       document.getElementById("loginPage").classList.add("hidden");
-      document.getElementById("readyPage").classList.remove("hidden");
+      document.getElementById("lockPage").classList.remove("hidden");
     } else {
       document.getElementById("error").innerText = "Wrong password 💔";
+      document.body.classList.add("shake");
+      setTimeout(() => document.body.classList.remove("shake"), 500);
     }
   }
 
-  function showMessage() {
-    document.getElementById("readyPage").classList.add("hidden");
-    document.getElementById("messagePage").classList.remove("hidden");
-    startTyping();
-    playMusic();
-  }
-
-  function showAnniv() {
-    document.getElementById("messagePage").classList.add("hidden");
-    document.getElementById("annivPage").classList.remove("hidden");
+  function heartClick() {
+    heartCount++;
+    if (heartCount >= 3) {
+      document.getElementById("lockPage").classList.add("hidden");
+      document.getElementById("messagePage").classList.remove("hidden");
+      startTyping();
+      playMusic();
+    }
   }
 
   function playMusic() {
-    var music = document.getElementById("bgMusic");
+    const music = document.getElementById("music");
+    music.volume = 0;
     music.play();
+
+    let vol = 0;
+    let fade = setInterval(() => {
+      if (vol < 1) {
+        vol += 0.05;
+        music.volume = vol;
+      } else {
+        clearInterval(fade);
+      }
+    }, 200);
   }
 
-  // ⌨️ SLOWER TYPING EFFECT
-  const text = `From the moment I met you, something felt different.
-You made my world brighter without even trying.
+  // 💌 typing effect
+  const text = `James Carl,
 
-Every moment with you is something I treasure deeply.
-And I realized something important...
+From the moment you came into my life,
+everything changed in the most beautiful way.
 
-I love you 💜
+You are my safe place,
+my happiness,
+my everything.
 
-Thank you for being part of my life.
-You mean so much to me, more than words can explain.`;
+I choose you today,
+tomorrow,
+and always.
+
+I love you 💜`;
 
   let i = 0;
 
@@ -213,10 +266,23 @@ You mean so much to me, more than words can explain.`;
     if (i < text.length) {
       document.getElementById("typingText").innerHTML += text.charAt(i);
       i++;
-      setTimeout(startTyping, 60); // slower typing here 💜
+      setTimeout(startTyping, 70);
     }
+  }
+
+  function yesLove() {
+    document.getElementById("messagePage").classList.add("hidden");
+    document.getElementById("annivPage").classList.remove("hidden");
+  }
+
+  function noLove() {
+    alert("You can't say no to love 💜");
+  }
+
+  function showSecret() {
+    document.getElementById("secret").classList.remove("hidden");
   }
 </script>
 
 </body>
-</html>  
+</html>
